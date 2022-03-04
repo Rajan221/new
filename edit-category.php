@@ -42,11 +42,12 @@ else {
 
     <div class="container">
         <div class="row">
-            <?php include('include/left-nav.php') ?>
+            <?php include('include/left-nav.php') ;?>
 
 
             <div class="col-8">
-                <form action="db/add-category.php" method="POST">
+                <form action="db/edit-category.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $cid;?>" ?>
                     <label for="" style="background-color:black; color:white; padding:10px; width:100%;">Category
                         Title</label>
                     <div class="input-group">

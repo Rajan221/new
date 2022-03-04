@@ -63,10 +63,9 @@ $categoryResult=mysqli_query($conn, $categoryQuery);
                             <tr>
                                 <td><?php echo $row['title'] ?></td>
                                 <td>
-                                    <a onclick="deleteConfirmation(<?php echo $row['id']; ?>)" href="#">
+                                    <a onclick="deleteConfirmation(<?php echo $row['id']; ?>)">
                                         <i class="fas fa-trash-alt" style="color:red;"></i>
-                                    </a>
-                                    |
+                                    </a>|
                                     <a href="edit-category.php?id= <?php echo $row['id'] ?>">
                                         <i class="fa-solid fa-pen-to-square" style="color:blue"></i>
                                     </a>
