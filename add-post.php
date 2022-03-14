@@ -33,7 +33,7 @@ $categoryResult=mysqli_query($conn, $categoryQuery);
             <?php include('include/left-nav.php') ?>
 
             <div class="col-8">
-                <form method="POST" action="">
+                <form method="POST" action="db/add-post.php" enctype="multipart/form-data">
                     <div class="md-3">
                         <label for="" style="font-size:20px; font-weight:bold;" class="form-label">Title:
                         </label>
