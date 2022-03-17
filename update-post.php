@@ -1,10 +1,26 @@
 <?php
+if (!isset($_GET['id'])) {
+    die("not allowed on this page");
+}
+
+include('db/connect.php');
+$pid = $_GET['id']; 
+$postQuery="SELECT * FROM post WHERE id ='$pid'";
+$postResult = mysqli_query($conn, $postQuery);
+
+if (mysqli_num_rows($postResult)==0) {
+    die("No record found");
+}
+
+$post = mysqli_fetch_assoc($postResult);
+
+
 session_start();
  if(!isset($_SESSION['login']) || !$_SESSION['login']==1){
    header('Location:login.php');
  }
  $id = $_SESSION['user_id']; 
- include('db/connect.php');
+
  $query = "SELECT * FROM users WHERE id='$id'";
 $result = mysqli_query($conn,$query);
 $data = mysqli_fetch_assoc($result);
@@ -33,18 +49,21 @@ $categoryResult=mysqli_query($conn, $categoryQuery);
             <?php include('include/left-nav.php') ?>
 
             <div class="col-8">
-                <form method="POST" action="db/add-post.php" enctype="multipart/form-data">
+                <form method="POST" action="#" enctype="multipart/form-data">
                     <div class="md-3">
                         <label for="" style="font-size:20px; font-weight:bold;" class="form-label">Title:
                         </label>
-                        <input placeholder="Title" type="text" class="form-control" name="title">
+                        <input placeholder="Title" value="<?php echo $post['title']; ?>" type="text"
+                            class="form-control" name="title">
                     </div>
 
 
                     <div class="md-3">
                         <br>
                         <textarea id="news" placeholder="Type some texts..." type="text" class="form-control"
-                            name="content"></textarea>
+                            name="content">
+                        <?php echo $post['content']; ?>
+                        </textarea>
                     </div>
 
                     <div class="md-3">
@@ -58,7 +77,10 @@ $categoryResult=mysqli_query($conn, $categoryQuery);
                         <label for="" style="font-size:20px; font-weight:bold;" class="form-label">Category:</label>
                         <select name="category" class="form-control">
                             <?php while($row=mysqli_fetch_assoc($categoryResult)){ ?>
-                            <option value="<?php echo $row['id'] ?>"><?php echo $row['title'] ?></option>
+                            <option value="<?php echo $row['id'] ?>"
+                                <?php if($post['id']==$row['id']){ echo "selected"; } ?>>
+                                <?php echo $row['title']; ?>
+                            </option>
                             <?php } ?>
                         </select>
                     </div>
